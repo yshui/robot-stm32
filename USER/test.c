@@ -46,7 +46,7 @@ int main(void)
 	Stm32_Clock_Init(9); //系统时钟设置
 	uart_init(72,115200);
 	delay_init(72);	     //延时初始化
-	ROBOT_INIT();
+	PERIVERAL_POWER_CTRL(ON);	//开启外围电路电源
 	OSInit(); 
  	OSTaskCreate(start_task,(void *)0,(OS_STK *)&START_TASK_STK[START_STK_SIZE-1],START_TASK_PRIO );//创建起始任务
 	OSStart();	  	 

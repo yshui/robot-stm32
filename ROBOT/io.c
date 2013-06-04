@@ -9,40 +9,24 @@ void PERIVERAL_POWER_CTRL(u8 onoff)
 	RCC->APB2ENR|=1<<2;     //使能PORTA时钟	   	 
 	GPIOA->CRL&=0XF0FFFFFF; 
 	GPIOA->CRL|=0X03000000; //PA.6 推挽输出  电开关 
-	if(onoff==OFF)
+	if(onoff==ON)
 	{
 	    GPIOA->ODR |= 1<<6;      //PA.6 输出高
 	    PERIVAERAL_POWER = ON;
 	} 
-	else if(onoff==ON)
+	else 
 	{
 	    GPIOA->ODR &= ~(1<<6);      //PA.6 输出高
 	   PERIVAERAL_POWER = OFF;
 	} 
-	else
-	{
-	    GPIOA->ODR &= ~(1<<6);      //PA.6 输出高
-	   PERIVAERAL_POWER = OFF;
-	} 
-  printf("\r\nPERIVAERAL POWER--------- %s", (PERIVAERAL_POWER==ON)? "ON" :  "OFF");
-}
-
-void ROBOT_INIT( void )
-{
-	RCC->APB2ENR|=1<<4;     //使能PORTC时钟	   	 
-	GPIOC->CRH&=0XFFFFF0FF; 
-	GPIOC->CRH|=0X00000300; //PC.10 推挽输出 
-	GPIOC->ODR |= 1<<10;  
-
-	RCC->APB2ENR|=1<<4;     //使能PORTC时钟	   	 
-	GPIOC->CRH&=0XFFFF0FFF; 
-	GPIOC->CRH|=0X00003000; //PC.10 推挽输出 
-	GPIOC->ODR &= ~(1<<11);  	 
+  //printf("\r\nPERIVAERAL POWER--------- %s", (PERIVAERAL_POWER==ON)? "ON" :  "OFF");
 }
 
 void LED_RED_CTRL(u8 onoff)
 {
-	 
+	RCC->APB2ENR|=1<<4;     //使能PORTC时钟	   	 
+	GPIOC->CRH&=0XFFFFF0FF; 
+	GPIOC->CRH|=0X00000300; //PC.10 推挽输出   	 
 	if(onoff==ON)
 	{
 	    GPIOC->ODR |= 1<<10;      //PC.10 输出高
@@ -55,7 +39,9 @@ void LED_RED_CTRL(u8 onoff)
 
 void LED_GREEN_CTRL(u8 onoff)
 {
-
+	RCC->APB2ENR|=1<<4;     //使能PORTC时钟	   	 
+	GPIOC->CRH&=0XFFFF0FFF; 
+	GPIOC->CRH|=0X00003000; //PC.10 推挽输出   	 
 	if(onoff==ON)
 	{
 	    GPIOC->ODR |= 1<<11;      //PC.11 输出高
@@ -65,6 +51,7 @@ void LED_GREEN_CTRL(u8 onoff)
 	    GPIOC->ODR &= ~(1<<11);      //PC.11 输出高
 	} 
 }
+
 void Right_Brush_CTRL(u8 onoff)
 {
 	RCC->APB2ENR|=1<<3;     //使能PORTB时钟	   	 
@@ -83,145 +70,96 @@ void Right_Brush_CTRL(u8 onoff)
 void Left_Brush_CTRL(u8 onoff)
 {
 	RCC->APB2ENR|=1<<2;     //使能PORTA时钟	   	 
-	//GPIOA->CRL&=0XF0FFFFFF; 
-	//GPIOA->CRL|=0X03000000; //PA.6 推挽输出  电开关   	 
 	GPIOA->CRH&=0XFFFFFFF0; 
-	GPIOA->CRH|=0X00000003; //PA.8 推挽输出  电开关   	 
-	//GPIOA->CRH&=0XFFFF0FFF; 
-	//GPIOA->CRH|=0X00003000; //PA.11 推挽输出   	 
+	GPIOA->CRH|=0X00000003; //PA.8 推挽输出  电开关	 
 	GPIOC->CRH&=0XFFFFFFF0; 
 	GPIOC->CRH|=0X00000003; //PC.8 推挽输出   	 
 	if(onoff==ON)
 	{
-	    //GPIOA->ODR |= 1<<11;      //PA.11 输出高
-	    //GPIOA->ODR |= 1<<6;      //PA.6 输出高
 	    GPIOA->ODR |= 1<<8;      //PA.8 输出高
 	    GPIOC->ODR |= 1<<8;      //PC.8 输出高
 	} 
 	else if(onoff==OFF)
 	{
-	    //GPIOA->ODR &= ~(1<<11);      //PA.11 输出高
-	    //GPIOA->ODR &= ~(1<<6);      //PA.6 输出高
 	    GPIOA->ODR &= ~(1<<8);      //PA.8 输出高
 	    GPIOC->ODR &= ~(1<<8);      //PC.8 输出高
 	} 
 }
 
 void Right_Wheel_CTRL(u8 onoff)
-{
-	//RCC->APB2ENR|=1<<2;     //使能PORTA时钟	   	 
+{   	 
 	RCC->APB2ENR|=1<<3;     //使能PORTB时钟	   	 
-	RCC->APB2ENR|=1<<4;     //使能PORTC时钟	   	 
-	//GPIOA->CRL&=0XF0FFFFFF; 
-	//GPIOA->CRL|=0X03000000; //PA.6 推挽输出  电开关   	 
+	RCC->APB2ENR|=1<<4;     //使能PORTC时钟	 
 	GPIOB->CRL&=0XF0FFFFFF; 
 	GPIOB->CRL|=0X03000000; //PB.6 推挽输出   	 
 	GPIOC->CRL&=0Xf0FFFFFF; 
 	GPIOC->CRL|=0X03000000; //PC.6 7 8 9 推挽输出   	 
-	//GPIOC->CRH&=0XFFFFFF00; 
-	//GPIOC->CRH|=0X00000033; //PC.6 7 8 9 推挽输出   	 
 	if(onoff==FORWARD)
 	{
-	    //GPIOA->ODR |= 1<<6;      //PA.6 输出高
-	    //GPIOB->ODR |= 1<<6;      //PB.6 输出高
-	    //GPIOC->ODR |= 1<<6;      //PC.6 输出高
 	    GPIOB->ODR &= ~(1<<6);      //PB.6 输出高
 	    GPIOC->ODR &= ~(1<<6);      //PC.6 输出高
-	    //GPIOC->ODR |= 1<<7;      //PC.7 输出高
-	    //GPIOC->ODR |= 1<<9;      //PC.9 输出高
 	} 
 	else if(onoff==BACKWARD)
 	{
-	    //GPIOA->ODR |= 1<<6;      //PA.6 输出高
 	    GPIOB->ODR |= 1<<6;      //PB.6 输出高
 	    GPIOC->ODR &= ~(1<<6);      //PC.6 输出高
-	    //GPIOB->ODR &= ~(1<<6);      //PB.6 输出高
-	    //GPIOC->ODR &= ~(1<<6);      //PC.6 输出高
-	    //GPIOC->ODR |= 1<<7;      //PC.7 输出高
-	    //GPIOC->ODR |= 1<<9;      //PC.9 输出高
 	} 
 	else if(onoff==OFF)
 	{
-	    //GPIOA->ODR &= ~(1<<6);      //PA.6 输出高
 	    GPIOB->ODR &= ~(1<<6);      //PB.6 输出高
 	    GPIOC->ODR &= ~(1<<6);      //PC.6 输出高
-	    //GPIOC->ODR &= ~(1<<7);      //PC.7 输出高
-	    //GPIOC->ODR &= ~(1<<9);      //PC.9 输出高
 	} 
 }
 
 void Left_Wheel_CTRL(u8 onoff)
-{
-	//RCC->APB2ENR|=1<<2;     //使能PORTA时钟	   	 
+{   	 
 	RCC->APB2ENR|=1<<3;     //使能PORTB时钟	   	 
-	RCC->APB2ENR|=1<<4;     //使能PORTC时钟	   	 
-	//GPIOA->CRL&=0XF0FFFFFF; 
-	//GPIOA->CRL|=0X03000000; //PA.6 推挽输出  电开关   	 
-	//GPIOA->CRH&=0XFFFFFFF0; 
-	//GPIOA->CRH|=0X00000003; //PA.8 推挽输出  电开关   	 
+	RCC->APB2ENR|=1<<4;     //使能PORTC时钟	   	 	 
 	GPIOB->CRL&=0XF0FFFFFF; 
-	GPIOB->CRL|=0X03000000; //PB.6 推挽输出   	 
-	//GPIOC->CRL&=0X00FFFFFF; 
-	//GPIOC->CRL|=0X33000000; //PC.6 7 8 9 推挽输出   	 
+	GPIOB->CRL|=0X03000000; //PB.6 推挽输出   	   	 
 	GPIOC->CRH&=0XFFFFFFF0; 
 	GPIOC->CRH|=0X00000003; //PC.8 推挽输出   	 
 	if(onoff==FORWARD)
 	{
-	    //GPIOA->ODR |= 1<<6;      //PA.6 输出高
 	    GPIOB->ODR |= 1<<6;      //PB.6 输出高
 	    GPIOC->ODR &= ~(1<<8);      //PC.8 输出高
-	    //GPIOA->ODR |= 1<<8;      //PA.8 输出高
-	    //GPIOB->ODR |= 1<<6;      //PB.6 输出高
-	    //GPIOC->ODR |= 1<<8;      //PC.8 输出高
-	    //GPIOC->ODR |= 1<<7;      //PC.7 输出高
-	    //GPIOC->ODR |= 1<<9;      //PC.9 输出高
-	printf("LEFT WHEEL FORWARD");   	//PE1);
+	//printf("LEFT WHEEL FORWARD");   	//PE1);
 	} 
 	else if(onoff==BACKWARD)
 	{
-	    //GPIOA->ODR |= 1<<6;      //PA.6 输出高
 	    GPIOB->ODR &= ~(1<<6);      //PB.6 输出高
 	    GPIOC->ODR &= ~(1<<8);      //PC.8 输出高
-	    //GPIOB->ODR &= ~(1<<6);      //PB.6 输出高
-	    //GPIOC->ODR &= ~(1<<8);      //PC.8 输出高
-	    //GPIOC->ODR |= 1<<7;      //PC.7 输出高
-	    //GPIOC->ODR |= 1<<9;      //PC.9 输出高
-	printf("LEFT WHEEL BACKWARD");   	//PE1);
+	//printf("LEFT WHEEL BACKWARD");   	//PE1);
 	} 
 	else if(onoff==OFF)
 	{
-	    //GPIOA->ODR &= ~(1<<6);      //PA.6 输出高
 	    GPIOB->ODR &= ~(1<<6);      //PB.6 输出高
 	    GPIOC->ODR &= ~(1<<8);      //PC.8 输出高
-	    //GPIOC->ODR &= ~(1<<7);      //PC.7 输出高
-	    //GPIOC->ODR &= ~(1<<9);      //PC.9 输出高
-	printf("LEFT WHEEL OFF");   	//PE1);
+	//printf("LEFT WHEEL OFF");   	//PE1);
 	} 
 }
 
 
 
-void TOP_SENSOR_Input(void)
+u8 TOP_SENSOR_Input(void)
 {
 	RCC->APB2ENR|=1<<6;     //使能PORTE时钟
 	GPIOE->CRL&=0XFFFFFFF0;	//PE0设置成输入，默认上拉	  
 	GPIOE->CRL|=0X00000008; 
 	GPIOE->ODR|=1;	   	//PE0 上拉
-	printf("TOP SENSOR status: %ld", PEin(0));   	//PE0);
+	//printf("TOP SENSOR status: %ld", PEin(0));   	//PE0);
+	return PEin(0);
 } 
 
 
-void KEY_Input(void)
+u8 KEY_Input(void)
 {
 	RCC->APB2ENR|=1<<6;     //使能PORTE时钟
 	GPIOE->CRL&=0XFFFFFF0F;	//PE1设置成输入，默认下拉	  
 	GPIOE->CRL|=0X00000080; 
 	GPIOE->ODR|=2;	   	//PE1 上拉
-	  
-	//GPIOE->CRL&=0XFFF000FF;	//PE2~4设置成输入	  
-	//GPIOE->CRL|=0X00088800; 				   
-	//GPIOE->ODR|=7<<2;	   	//PE2~4 上拉
-	printf("key status: %ld", PEin(1));   	//PE1);
+	//printf("key status: %ld", PEin(1));   	//PE1);
+	return PEin(1);
 } 
 
 u8 CHARGE_STATUS_Input(void)
@@ -230,7 +168,7 @@ u8 CHARGE_STATUS_Input(void)
 	GPIOC->CRL&=0XFFFFFF0F; 
 	GPIOC->CRL|=0X00000080; //PC.1 设置成输入，默认下拉   	 
 	GPIOC->ODR|=2;	   	//PC.1 上拉
-	return 	PCin(1);
+	return PCin(1);
 } 
 
 void RESIST_STATUS_Input(void)

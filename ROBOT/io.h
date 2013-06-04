@@ -64,10 +64,10 @@ void Right_Brush_CTRL(u8 onoff);
 void Left_Brush_CTRL(u8 onoff);
 void Right_Wheel_CTRL(u8 onoff);
 void Left_Wheel_CTRL(u8 onoff);
-void TOP_SENSOR_Input(void);
-void KEY_Input(void);
+u8 TOP_SENSOR_Input(void);
+u8 KEY_Input(void);
 void BUZ_CTRL(u8 onoff);
 void FAN_CTRL(u8 onoff);
-void ROBOT_INIT( void );
+//void ROBOT_INIT( void );
 
 #endif
