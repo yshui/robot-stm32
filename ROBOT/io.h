@@ -11,6 +11,30 @@
 #define FORWARD   1
 #define BACKWARD  2
 
+
+#define FRONTL0 PAin(2) //向前方向的光敏监测
+#define FRONTL1 PBin(1)
+#define FRONTL2 PAin(5)
+#define FRONTL3 PAin(7)
+
+#define DOWNL0 PAin(4) //向下方向的光敏监测
+#define DOWNL1 PCin(4)
+#define DOWNL2 PAin(3)
+#define DOWNL3 PAin(0)
+
+#define FRONTS0 PBin(5) //障碍物接触开关输入
+#define FRONTS1 PBin(13)
+
+#define CHARGE0 PDin(14) //顶部的充电寻路方向的光敏监测
+#define CHARGE1 PDin(12) //向前方向的充电寻路方向的光敏监测
+#define CHARGE2 PDin(13)
+
+#define WHEELL0 PDin(1) //左侧马达接触开关输入
+#define WHEELL1 PDin(3) //左马达光电信号输入
+#define WHEELR0 PDin(10) //右侧马达接触开关输入
+#define WHEELR1 PDin(2) //右马达光电信号输入
+
+
 //IO口操作,只对单一的IO口!
 //确保n的值小于16!
 #define PAout(n)   BIT_ADDR(GPIOA_ODR_Addr,n)  //输出 
@@ -69,5 +93,6 @@ u8 KEY_Input(void);
 void BUZ_CTRL(u8 onoff);
 void FAN_CTRL(u8 onoff);
 //void ROBOT_INIT( void );
+
 
 #endif

@@ -162,6 +162,81 @@ u8 KEY_Input(void)
 	return PEin(1);
 } 
 
+u8 SENSORS_Top1(void)
+{
+    //顶部的充电寻路方向的光敏监测
+	RCC->APB2ENR|=1<<5;     //使能PORTD时钟
+	GPIOD->CRH&=0XFFF0FFFF;	//PD12设置成输入，默认下拉	  
+	GPIOD->CRH|=0X00080000; 
+	//GPIOD->ODR|=2;	   	//PE1 上拉
+	//printf("key status: %ld", PDin(12));   	//PE1);
+	return PDin(12);
+}
+
+u8 SENSORS_Top2(void)
+{
+    //向前方向的充电寻路方向的光敏监测
+	RCC->APB2ENR|=1<<5;     //使能PORTD时钟
+	GPIOD->CRH&=0XFF0FFFFF;	//PD13设置成输入，默认下拉	  
+	GPIOD->CRH|=0X00800000; 
+	//GPIOD->ODR|=2;	   	//PE1 上拉
+	//printf("key status: %ld", PDin(13));   	//PE1);
+	return PDin(13);
+}
+
+u8 SENSORS_Top3(void)
+{
+    //向前方向的充电寻路方向的光敏监测
+	RCC->APB2ENR|=1<<5;     //使能PORTD时钟
+	GPIOD->CRH&=0XF0FFFFFF;	//PD14设置成输入，默认下拉	  
+	GPIOD->CRH|=0X08000000; 
+	//GPIOD->ODR|=2;	   	//PE1 上拉
+	//printf("key status: %ld", PDin(14));   	//PE1);
+	return PDin(14);
+}
+
+u8 LEFT_WHEEL_SENSORS(void)
+{
+    //左马达光电信号输入
+	RCC->APB2ENR|=1<<5;     //使能PORTD时钟
+	GPIOD->CRL&=0XFFFFF0FF;	//PD2设置成输入，默认下拉	  
+	GPIOD->CRL|=0X00000800; 
+	//GPIOD->ODR|=2;	   	//PE1 上拉
+	//printf("key status: %ld", PDin(14));   	//PE1);
+	return PDin(2);
+}
+
+u8 LEFT_WHEEL_DOWN(void)
+{
+    //左马达光电信号输入
+	RCC->APB2ENR|=1<<5;     //使能PORTD时钟
+	GPIOD->CRL&=0XFFFFFF0F;	//PD1设置成输入，默认下拉	  
+	GPIOD->CRL|=0X00000080; 
+	//GPIOD->ODR|=2;	   	//PE1 上拉
+	//printf("key status: %ld", PDin(14));   	//PE1);
+	return PDin(1);
+}
+u8 RIGHT_WHEEL_SENSORS(void)
+{
+    //右马达光电信号输入
+	RCC->APB2ENR|=1<<5;     //使能PORTD时钟
+	GPIOD->CRL&=0XFFFF0FFF;	//PD3设置成输入，默认下拉	  
+	GPIOD->CRL|=0X00008000; 
+	//GPIOD->ODR|=2;	   	//PE1 上拉
+	//printf("key status: %ld", PDin(14));   	//PE1);
+	return PDin(3);
+}
+u8 RIGHT_WHEEL_DOWN(void)
+{
+    //右马达光电信号输入
+	RCC->APB2ENR|=1<<5;     //使能PORTD时钟
+	GPIOD->CRH&=0XFFFFF0FF;	//PD10设置成输入，默认下拉	  
+	GPIOD->CRH|=0X00000800; 
+	//GPIOD->ODR|=2;	   	//PE1 上拉
+	//printf("key status: %ld", PDin(14));   	//PE1);
+	return PDin(10);
+}
+
 u8 CHARGE_STATUS_Input(void)
 {
 	RCC->APB2ENR|=1<<4;     //使能PORTC时钟	   	 
@@ -205,7 +280,7 @@ void RESIST_STATUS_Input(void)
 	GPIOE->CRL|=0X00000008; 
 	GPIOE->ODR|=1;	   	//PE0 上拉
 
-	printf("RESIST STATUS: \r\n");   	//PE1);
+	/*printf("RESIST STATUS: \r\n");   	//PE1);
 	printf("PTA: 0(%ld) 2(%ld) 3(%ld) 4(%ld) 5(%ld) 7(%ld)\r\n", 
 		PAin(0), PAin(2), PAin(3), PAin(4), PAin(5), PAin(7)); 
 	printf("PTB: 1(%ld) 5(%ld) 13(%ld)\r\n", 
@@ -215,7 +290,7 @@ void RESIST_STATUS_Input(void)
 	printf("PTD: 1(%ld) 2(%ld) 3(%ld) 10(%ld) 12(%ld) 13(%ld) 14(%ld)\r\n", 
 		PDin(1), PDin(2), PDin(3), PDin(10), PDin(12), PDin(13), PDin(14)); 
 	printf("PTE: 0(%ld)\r\n", 
-		PEin(0)); 
+		PEin(0)); */
 } 
 
 void BUZ_CTRL(u8 onoff)

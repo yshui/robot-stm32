@@ -46,6 +46,7 @@ int main(void)
 	Stm32_Clock_Init(9); //系统时钟设置
 	uart_init(72,115200);
 	delay_init(72);	     //延时初始化
+	RESIST_STATUS_Input();
 	PERIVERAL_POWER_CTRL(ON);	//开启外围电路电源
 	OSInit(); 
  	OSTaskCreate(start_task,(void *)0,(OS_STK *)&START_TASK_STK[START_STK_SIZE-1],START_TASK_PRIO );//创建起始任务
@@ -71,11 +72,11 @@ void led0_task(void *pdata)
 {	
 	while(1)
 	{
-		LED_RED_CTRL(ON);
-		delay_ms(80);
-		LED_RED_CTRL(OFF);
-		delay_ms(920);
-		printf("\r\nTestOK!");
+		if (LEFT_WHEEL_SENSORS())
+			LED_RED_CTRL(OFF);
+		else
+			LED_RED_CTRL(ON);
+		delay_ms(300);
 	};
 }
 
@@ -84,9 +85,10 @@ void led1_task(void *pdata)
 {	  
 	while(1)
 	{
-	    LED_GREEN_CTRL(ON);
-		delay_ms(300);
-		LED_GREEN_CTRL(OFF);
+		if (RIGHT_WHEEL_SENSORS())
+			LED_GREEN_CTRL(OFF);
+		else
+			LED_GREEN_CTRL(ON);
 		delay_ms(300);
 	};
 }
