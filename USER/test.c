@@ -71,11 +71,11 @@ void led0_task(void *pdata)
 {	
 	while(1)
 	{
-		LED_RED_CTRL(ON);
-		delay_ms(80);
-		LED_RED_CTRL(OFF);
-		delay_ms(920);
-		printf("\r\nTestOK!");
+		if (LEFT_WHEEL_SENSORS())
+			LED_RED_CTRL(OFF);
+		else
+			LED_RED_CTRL(ON);
+		delay_ms(300);
 	};
 }
 
@@ -84,9 +84,10 @@ void led1_task(void *pdata)
 {	  
 	while(1)
 	{
-	    LED_GREEN_CTRL(ON);
-		delay_ms(300);
-		LED_GREEN_CTRL(OFF);
+		if (RIGHT_WHEEL_SENSORS())
+			LED_GREEN_CTRL(OFF);
+		else
+			LED_GREEN_CTRL(ON);
 		delay_ms(300);
 	};
 }

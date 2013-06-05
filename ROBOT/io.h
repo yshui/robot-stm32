@@ -68,6 +68,9 @@ u8 TOP_SENSOR_Input(void);
 u8 KEY_Input(void);
 void BUZ_CTRL(u8 onoff);
 void FAN_CTRL(u8 onoff);
+u8 SENSORS_Top1(void);
+u8 SENSORS_Top2(void);
+u8 SENSORS_Top3(void);
 //void ROBOT_INIT( void );
 
 #endif
